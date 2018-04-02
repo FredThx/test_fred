@@ -1,13 +1,13 @@
-﻿import React from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
 import './Card.css'
 
-const HIDDEN_SYMBOL = '?'
+const HIDDEN_SYMBOL = '❓'
 
-const Card = ({card, feedback, onClick}) => (
+const Card = ({card, feedback, index, onClick}) => (
 	//{/* On ne peut pas ecrire 'card + feedback' car  il n'y a pas d'interprétation pour les nom de  props. On utilise alors les template*/}
-	<div className={'card &{feedback]'} onClick = {() => onClick(card)}>
+	<div className={'card ${feedback}'} onClick = {() => onClick(index)}>
 		<span className="symbol">
 			{feedback === 'hidden' ? HIDDEN_SYMBOL : card}
 		</span>
@@ -22,6 +22,7 @@ Card.propType = {
 		'justMatched',
 		'justMismatched'
 	]).isRequired,
+	index:PropTypes.number.isRequired,
 	onclick:PropTypes.func.isRequired
 }
 
