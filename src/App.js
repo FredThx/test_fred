@@ -6,6 +6,8 @@ import './App.css'
 import Card from './Card'
 import GuessCount from './GuessCount'
 import HallOfFame , {FAKE_HOF} from './HallOfFame'
+import HighScoreInput from './HighScoreInput'
+import MonFormulaire from './MonFormulaire'
 
 const SIDE = 6
 const SYMBOLS = '😀🎉💖🎩🐶🐱🦄🐬🌍🌛🌞💫🍎🍌🍓🍐🍟🍿'
@@ -16,9 +18,15 @@ class App extends Component {
 	  cards : this.generateCards(),
 	  currentPair : [],
 	  guesses : 0,
+	  hallOfFame : null,
 	  matchedCardIndices : [],
   }
 
+	displayAllOfFame = (hallOfFame) =>{
+		console.log(hallOfFame)
+		this.setState({hallOfFame})
+	}
+  
   generateCards() {
     const result = []
     const size = SIDE * SIDE
@@ -76,8 +84,8 @@ class App extends Component {
 	
 	
   render() {
-	const {cards, currentPair, guesses, matchedCardIndices} = this.state
-    const won = matchedCardIndices.length == cards.length
+	const {cards, currentPair, hallOfFame, guesses, matchedCardIndices} = this.state
+    const won = matchedCardIndices.length == 2//cards.length
     return (
       <div className="memory">
 		L'application de test
@@ -91,8 +99,16 @@ class App extends Component {
 				onClick={this.handleCardClick}
 			/>
 		))}
-  {won && <HallOfFame entries={FAKE_HOF}/>}
-
+		{won &&
+			(hallOfFame ?(
+				<HallOfFame entries={hallOfFame} />
+				): (
+				<HighScoreInput
+					guesses = {guesses}
+					onStored={this.displayAllOfFame}
+				/>
+			))}
+		<MonFormulaire defaultNick="Fred" name="name" required/>
       </div>
     )
   }

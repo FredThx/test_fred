@@ -26,5 +26,4 @@ Card.propType = {
 	onclick:PropTypes.func.isRequired
 }
 
-
 export default Card
